@@ -24,11 +24,11 @@ def main():
 
         length = st.slider(
             "Játékidő [perc]",
-            int(filtered_data["Játékidő [perc]"].min()),
-            int(filtered_data["Játékidő [perc]"].max()),
+            int(data["Játékidő [perc]"].min()),
+            int(data["Játékidő [perc]"].max()),
             (
-                int(filtered_data["Játékidő [perc]"].min()),
-                int(filtered_data["Játékidő [perc]"].max()),
+                int(data["Játékidő [perc]"].min()),
+                int(data["Játékidő [perc]"].max()),
             ),
         )
         filtered_data: pd.DataFrame = filtered_data[
