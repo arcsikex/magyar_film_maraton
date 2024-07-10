@@ -4,10 +4,9 @@ from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
 GITHUB_REPO = "https://github.com/arcsikex/magyar_film_maraton"
 YOUTUBE = "https://www.youtube.com"
+primary_color = tc = st.get_option("theme.primaryColor").replace("#", "")
 
 data: pd.DataFrame = pd.read_csv("mafima.csv", delimiter=";")
-
-primary_color = tc = st.get_option("theme.primaryColor").replace("#", "")
 
 
 def main():
@@ -100,7 +99,7 @@ def main():
         enable_enterprise_modules=False,
         theme="streamlit",
         fit_columns_on_grid_load=True,
-        height=1200,
+        height=len(filtered_data.index) * 28 + 35,
     )
 
 
