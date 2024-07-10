@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder, JsCode
 
+GITHUB_REPO = "https://github.com/arcsikex/magyar_film_maraton"
+YOUTUBE = "https://www.youtube.com"
+
 data: pd.DataFrame = pd.read_csv("mafima.csv", delimiter=";")
 
 primary_color = tc = st.get_option("theme.primaryColor").replace("#", "")
@@ -43,7 +46,7 @@ def main():
                 int(filtered_data["Játékidő [perc]"].max()),
             ),
         )
-        filtered_data: pd.DataFrame = data[
+        filtered_data: pd.DataFrame = filtered_data[
             (filtered_data["Játékidő [perc]"] >= length[0])
             & (filtered_data["Játékidő [perc]"] <= length[1])
         ]
@@ -57,8 +60,8 @@ def main():
         st.divider()
         st.markdown(
             f"Socials: \
-            [![Github](https://img.icons8.com/?size=40&id=fmFqQmR0UdsR&format=png&color={primary_color})](https://github.com) | \
-            [![YouTube](https://img.icons8.com/?size=40&id=NgVx6SS0Wbjb&format=png&color={primary_color})](https://www.youtube.com)"
+            [![Github](https://img.icons8.com/?size=40&id=fmFqQmR0UdsR&format=png&color={primary_color})]({GITHUB_REPO}) | \
+            [![YouTube](https://img.icons8.com/?size=40&id=NgVx6SS0Wbjb&format=png&color={primary_color})]({YOUTUBE})"
         )
 
     filtered_data = filtered_data.sort_values("Értékelés", ascending=False)
