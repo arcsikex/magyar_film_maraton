@@ -54,13 +54,21 @@ def main():
     st.markdown(
         """
         <div style="text-align: center;">
-            <h2>Magyar Film Maraton Toplista</h2>
+            <h1>Magyar Film Maraton Toplista</h1>
         </div>""",
         unsafe_allow_html=True,
     )
     st.markdown(
         """
-    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+        <div style="text-align: center;">
+            <p>Ez az oldal a Magyar Film Maraton sorozatban bemutatott filmeket foglalja össze egy táblázatban, ahol a Review oszlopban található linkekkel érheted el az egyes filmek értékelését. Az alábbi lejátszási listában megtalálod a sorozat összes epizódját, az oldalsávban pedig szűrők segítik a keresést.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; max-width: 1280px; max-height: 720px; margin: auto;">
         <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
                 src="https://www.youtube.com/embed/videoseries?si=hY9MZAi0jL3n4Je_&amp;list=PLAuHYXdwFUwg8ErChl6ZtdloiZg4xI55K"
                 title="Magyar Film Maraton"
@@ -79,13 +87,13 @@ def main():
     gb.configure_column("Link", type=["htmlCell"])
     gb.configure_column(
         "Link",
-        headerName="Link",
+        headerName="Review",
         cellRenderer=JsCode(
             """
         class UrlCellRenderer {
           init(params) {
             this.eGui = document.createElement('a');
-            this.eGui.innerText = 'Értékelés';
+            this.eGui.innerText = 'Link';
             this.eGui.setAttribute('href', params.value);
             this.eGui.setAttribute('style', "text-decoration:none");
             this.eGui.setAttribute('target', "_blank");
@@ -109,6 +117,14 @@ def main():
         theme="streamlit",
         fit_columns_on_grid_load=True,
         height=len(filtered_data.index) * 28 + 35,
+    )
+    st.divider()
+    st.markdown(
+        """
+        ### Források a táblázathoz:
+        - Lista és értékelés a [Magyar Film Maraton](https://www.youtube.com/playlist?list=PLAuHYXdwFUwg8ErChl6ZtdloiZg4xI55K) lejátszási listáról.
+        - Hossz és bemutatás dátuma [port.hu](https://port.hu/)-ról
+        """
     )
 
 
