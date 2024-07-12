@@ -36,7 +36,7 @@ def main():
             & (filtered_data["Játékidő [perc]"] <= length[1])
         ]
 
-        rating = st.slider("Értékelés", 0, 10, (0, 10))
+        rating = st.slider("Értékelés", -1, 10, (-1, 10))
         filtered_data = filtered_data[
             (filtered_data["Értékelés"] >= rating[0])
             & (filtered_data["Értékelés"] <= rating[1])
@@ -118,6 +118,7 @@ def main():
         fit_columns_on_grid_load=True,
         height=len(filtered_data.index) * 28 + 35,
     )
+    st.text("*-1: Nem kapott értékelést (A film nem volt megtalálható)")
     st.divider()
     st.markdown(
         """
