@@ -10,6 +10,10 @@ data: pd.DataFrame = pd.read_csv("mafima.csv", delimiter=";")
 
 
 def main():
+    st.set_page_config(
+        page_title="Magyar Film Maraton",
+        page_icon="🍿",
+    )
     with st.sidebar:
         st.subheader("Szűrők")
         year_filter = st.slider(
