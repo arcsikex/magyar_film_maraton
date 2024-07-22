@@ -89,6 +89,28 @@ def main():
     # Configure AgGrid options
     gb = GridOptionsBuilder.from_dataframe(filtered_data)
     gb.configure_column("Link", type=["htmlCell"])
+    gb.configure_column("Borítókép", type=["htmlCell"])
+
+    gb.configure_column(
+        "Borítókép",
+        headerName="Borítókép",
+        cellRenderer=JsCode(
+            """
+        class ImageCellRenderer {
+          init(params) {
+            this.eGui = document.createElement('div');
+            this.eGui.innerHTML = `<div style='display: flex; align-items: center; justify-content: center; height: 100%;'>
+                                      <img src='${params.value}' style='max-height: 100px; width: auto; height: auto;' />
+                                   </div>`;
+          }
+          getGui() {
+            return this.eGui;
+          }
+        }
+    """
+        ),
+    )
+
     gb.configure_column(
         "Link",
         headerName="Review",
@@ -110,6 +132,7 @@ def main():
         ),
     )
 
+    gb.configure_grid_options(rowHeight=100)
     grid_options = gb.build()
 
     # Display the data with AgGrid
@@ -120,7 +143,7 @@ def main():
         enable_enterprise_modules=False,
         theme="streamlit",
         fit_columns_on_grid_load=True,
-        height=len(filtered_data.index) * 28 + 35,
+        height=len(filtered_data.index) * 100 + 35,
     )
     st.text("*-1: Nem kapott értékelést (A film nem volt megtalálható)")
     st.divider()
@@ -128,7 +151,8 @@ def main():
         """
         ### Források a táblázathoz:
         - Lista és értékelés a [Magyar Film Maraton](https://www.youtube.com/playlist?list=PLAuHYXdwFUwg8ErChl6ZtdloiZg4xI55K) lejátszási listáról.
-        - Hossz és bemutatás dátuma [port.hu](https://port.hu/)-ról
+        - Hossz és bemutatás éve: [port.hu](https://port.hu/)
+        - Borítóképek: [IMDB](https://www.imdb.com/), [port.hu](https://port.hu/)
         """
     )
 
